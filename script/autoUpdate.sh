@@ -14,7 +14,7 @@ function processUpdate() {
 }
 
 scriptDir=$(getFullDir $scriptDir)
-inputFile=$scriptDir/compile_info
+inputFile=$scriptDir/../tmp/compile_info
 
 while read line || [[ -n ${line} ]]; do
 	processUpdate $line

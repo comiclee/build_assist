@@ -5,7 +5,7 @@ scriptDir=$(dirname $0)
 source $scriptDir/lib.sh
 
 scriptDir=$(getFullDir $scriptDir)
-outputFile=$scriptDir/branch_info
+outputFile=$scriptDir/../tmp/branch_info
 
 if [ $# != 0 ] ; then
 	rootDir=$(getFullDir $1)
