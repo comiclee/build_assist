@@ -7,6 +7,10 @@ source $scriptDir/lib.sh
 scriptDir=$(getFullDir $scriptDir)
 outputFile=$scriptDir/../tmp/branch_info
 
+if [ -f $outputFile ] ; then
+	rm -f $outputFile
+fi
+
 if [ $# != 0 ] ; then
 	rootDir=$(getFullDir $1)
 else

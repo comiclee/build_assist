@@ -15,9 +15,14 @@ function processUpdate() {
 
 scriptDir=$(getFullDir $scriptDir)
 inputFile=$scriptDir/../tmp/compile_info
+resultFile=$scriptDir/../tmp/op_result
+
+if [ -f $resultFile ] ; then
+	rm -f $resultFile
+fi
 
 while read line || [[ -n ${line} ]]; do
 	processUpdate $line
 done < $inputFile
 
-echo ==========更新完毕==========
+echo ==========更新完毕========== > $resultFile
