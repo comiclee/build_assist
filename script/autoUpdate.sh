@@ -8,7 +8,8 @@ function processUpdate() {
 	local moduleDir=$1
 	local branch=$2
 	cd $moduleDir
-	git co $branch
+	git fetch
+	git checkout $branch
 	git pull
 	mvn clean install
 }
