@@ -26,9 +26,12 @@ exports.process = function(request, response, callback) {
 			console.log(objectPostData);
 			
 			// 如果没有resultFile，则说明在处理中，那就只轮询，不执行shell脚本
-			if (!fs.existsSync(resultFile)) {
-				getResult(resultFile, callback);
-				return;
+			if (fs.existsSync(resultFile)) {
+				var content = fs.readFileSync(resultFile);
+				if (content.toString().trim()=='working') {
+					getResult(resultFile, callback);
+					return;
+				}
 			}
 			
 			var fileData = objectPostData.modules;
@@ -59,18 +62,22 @@ function getResult(resultFile, callback) {
 		if (fs.existsSync(resultFile)) {
 			clearInterval(interval);
 			fs.readFile(resultFile, function(err, data) {
-				callback({
-					code : 200,
-					content : data.toString(),
-					contentType : 'text/html'
-				});
-			});
-		} else if (retryTimes==0) {
-			clearInterval(interval);
-			callback({
-				code : 200,
-				content : '执行失败',
-				contentType : 'text/html'
+				if (data.toString().trim()=='working') {
+					if (retryTimes==0) {
+						clearInterval(interval);
+						callback({
+							code : 200,
+							content : '执行超时',
+							contentType : 'text/html'
+						});
+					}
+				} else {
+					callback({
+						code : 200,
+						content : '执行成功',
+						contentType : 'text/html'
+					});
+				}
 			});
 		}
 	}, 1000);
