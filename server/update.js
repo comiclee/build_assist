@@ -60,7 +60,6 @@ function getResult(resultFile, callback) {
 	var interval = setInterval(function() {
 		retryTimes --;
 		if (fs.existsSync(resultFile)) {
-			clearInterval(interval);
 			fs.readFile(resultFile, function(err, data) {
 				if (data.toString().trim()=='working') {
 					if (retryTimes==0) {
@@ -72,6 +71,7 @@ function getResult(resultFile, callback) {
 						});
 					}
 				} else {
+					clearInterval(interval);
 					callback({
 						code : 200,
 						content : '执行成功',
