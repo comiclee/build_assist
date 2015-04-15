@@ -16,7 +16,7 @@ if [ $# != 0 ] ; then
 else
 	rootDir=$PWD/
 fi
-#echo "Begin check root directory of $rootDir"
+echo "Begin check root directory of $rootDir"
 
 if [ ! -d $rootDir ] ; then
 	#echo Please input correct directory

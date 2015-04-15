@@ -6,5 +6,6 @@ function getFullDir() {
 		local value=$PWD/$value
 		local value=`echo $value | sed 's/\/\.//'`
 	fi
+  local value=`echo $value | sed 's/\/*$/\//'`
 	echo $value
 }
