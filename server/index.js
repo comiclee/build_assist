@@ -6,6 +6,14 @@ var serverDir = __dirname;
 var server = http.createServer(function(request,response) {
 	var path = url.parse(request.url).pathname;
 	var handlerPath = serverDir + path + '.js';
+  if (path == '/') {
+    response.writeHead(301,{
+      'Location':'/find'
+    });
+    response.end();
+    return;
+  }
+  
 	if (!fs.existsSync(handlerPath)) {
 		console.log('Error: The file ' + handlerPath + ' is not exist');
 		response.writeHead(404, {"Content-Type": "text/plain"});
